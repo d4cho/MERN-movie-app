@@ -19,7 +19,7 @@ const LandingPage = () => {
     fetch(path)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setMovies([...Movies, ...response.results]);
         setCurrentPage(response.page);
       });

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { auth } = require('../middleware/auth');
-const { Favorite } = require('../models/favorite');
+const { Favorite } = require('../models/Favorite');
 const { json } = require('body-parser');
 
 //=================================
@@ -22,9 +22,9 @@ router.post('/favorited', auth, (req, res) => {
 
   Favorite.find({
     movieId: req.body.movieId,
-    userFrom: req.body.userfrom
+    userFrom: req.body.userFrom
   }).exec((err, favorite) => {
-    console.log(favorite.length);
+    // console.log(favorite.length);
     if (err) return res.status(400).send(err);
 
     // How can we know if I already favorited this movie or not?
@@ -63,6 +63,7 @@ router.post('/removeFromFavorites', auth, (req, res) => {
 
 router.post('/getFavoritedMovies', (req, res) => {
   Favorite.find({ userFrom: req.body.userFrom }).exec((err, favorites) => {
+    console.log(favorites);
     if (err) return res.status(400).send(err);
     return res.status(200).json({ success: true, favorites });
   });

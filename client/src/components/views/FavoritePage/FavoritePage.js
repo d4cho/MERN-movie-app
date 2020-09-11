@@ -9,18 +9,36 @@ const FavoritePage = () => {
 
   const variables = { userFrom: localStorage.getItem('userId') };
 
-  useEffect(() => {
-    fetchFavoritedMovies();
-  }, []);
-
   const fetchFavoritedMovies = () => {
     axios
       .post('/api/favorite/getFavoritedMovies', variables)
       .then((response) => {
         if (response.data.success) {
+          // console.log(response);
           setFavoritedMovies(response.data.favorites);
         } else {
           alert('Failed to get favorited movies');
+        }
+      });
+  };
+
+  useEffect(() => {
+    fetchFavoritedMovies();
+  }, []);
+
+  const onClickRemove = (movieId) => {
+    const variables = {
+      movieId: movieId,
+      userFrom: localStorage.getItem('userId')
+    };
+
+    axios
+      .post('/api/favorite/removeFromFavorites', variables)
+      .then((response) => {
+        if (response.data.success) {
+          fetchFavoritedMovies();
+        } else {
+          alert('Failed to remove from Favorites');
         }
       });
   };
@@ -36,29 +54,12 @@ const FavoritePage = () => {
       </div>
     );
 
-    const onClickRemove = (movieId) => {
-      const variables = {
-        movieId: movieId,
-        userFrom: localStorage.getItem('userId')
-      };
-
-      axios
-        .post('/api/favorite/removeFromFavorites', variables)
-        .then((response) => {
-          if (response.data.success) {
-            fetchFavoritedMovies();
-          } else {
-            alert('Failed to remove from Favorites');
-          }
-        });
-    };
-
     return (
-      <tr>
+      <tr key={index}>
         <Popover content={content} title={`${movie.movieTitle}`}>
           <td>{movie.movieTitle}</td>
         </Popover>
-        <td>{movie.movieRuntime} mins</td>
+        <td>{movie.movieRunTime} mins</td>
         <td>
           <button onClick={() => onClickRemove(movie.movieId)}>Remove</button>
         </td>

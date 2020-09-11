@@ -18,19 +18,19 @@ const Favorite = (props) => {
       if (response.data.success) {
         setFavoriteNumber(response.data.favoriteNumber);
       } else {
-        alert('Failed to get favoriteNumber');
+        console.log('Failed to get favoriteNumber');
       }
     });
 
     axios.post('/api/favorite/favorited', variables).then((response) => {
-      console.log(response.data.favorited);
+      // console.log(response.data.favorited);
       if (response.data.success) {
         setFavorited(response.data.favorited);
       } else {
-        alert('Failed to get favorite info');
+        console.log('Failed to get favorite info');
       }
     });
-  }, []);
+  }, [variables]);
 
   const onClickFavorite = () => {
     if (Favorited) {

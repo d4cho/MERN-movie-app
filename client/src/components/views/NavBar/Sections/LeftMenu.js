@@ -1,7 +1,5 @@
 import React from 'react';
 import { Menu } from 'antd';
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 function LeftMenu(props) {
   return (
@@ -10,7 +8,7 @@ function LeftMenu(props) {
         <a href='/'>Home</a>
       </Menu.Item>
       <Menu.Item key='favorites'>
-        <a href='/favorite'>Favorites</a>
+        <a href='/favorite'>My Favorites</a>
       </Menu.Item>
     </Menu>
   );
